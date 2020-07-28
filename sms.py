@@ -2,7 +2,7 @@ from twilio.rest import Client
 
 
 def send_msg(date, name, no_full, no_leak, no_fum, sum):
-    client = Client("ACcaf60ae6f3dbdc0a64b387afc2178904", "4c22e5bfdcf3aa32a7ada744cba33276")
+    client = Client("your account sid", "auth token")
     msg= f"""
 Centrum klimatyzacji Kalisz
 {date}
