@@ -1,4 +1,5 @@
 import tkinter as tk
+from sms import send_msg
 
 class MainApp(tk.Frame):
     def __init__(self, parent, *args, **kwargs):
@@ -51,7 +52,7 @@ class MainApp(tk.Frame):
         self.sum_value_label = tk.Label(self.sum_frame, text=str(self.money_earned), borderwidth=2, relief='solid', width=12, anchor='e', padx=5)
         
         # Button that triggers confirmation and sending of a raport
-        self.confirm_btn = tk.Button(parent, text='Zatwierdź i wyślij raport')
+        self.confirm_btn = tk.Button(parent, text='Zatwierdź i wyślij raport', command=self.send_message)
 
         self.setup_grid()
 
@@ -138,8 +139,16 @@ class MainApp(tk.Frame):
             self.money_earned -= cost
         self.sum_value_label['text'] = str(self.money_earned)
 
-
-
+    def send_message(self):
+        date=str(self.date_entry.get())
+        name=str(self.name_entry.get())
+        no_full= str(self.full_set_amount['text'])
+        no_fum= str(self.ac_fumigation_amount['text'])
+        no_leak= str(self.leakiness_amount['text'])
+        money= str(self.money_earned)
+        send_msg(date, name, no_full, no_fum, no_leak, money)
+        
+        
 if __name__== '__main__':
     root = tk.Tk()
     main_win = MainApp(root)
