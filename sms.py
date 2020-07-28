@@ -13,6 +13,6 @@ Centrum klimatyzacji Kalisz
 Suma: {sum}
 Godziny pracy: {name} 10-18
          """
-    client.messages.create(to="+48503525328",
-                       from_="+18137564411",
+    client.messages.create(to="receiver",
+                       from_="your phone number",
                        body=msg)
