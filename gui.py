@@ -10,6 +10,10 @@ class MainApp(tk.Frame):
         self.no_full_set = 0
         self.no_leakiness = 0
         self.no_ac_fumigation = 0
+        self.prices = {'full_set': 200,
+                       'fumigation': 50,
+                       'leakiness': 70
+        }
 
         # Label and entry for inserting date of raport
         self.date_label = tk.Label(parent, text='Wprowadź datę')
@@ -103,15 +107,15 @@ class MainApp(tk.Frame):
         if kind == 'full':
             self.no_full_set += 1
             self.full_set_amount['text'] = str(self.no_full_set)
-            self.update_sum(200, upd_mode)
+            self.update_sum(self.prices['full_set'], upd_mode)
         elif kind == 'fum':
             self.no_ac_fumigation += 1
             self.ac_fumigation_amount['text'] = str(self.no_ac_fumigation)
-            self.update_sum(50, upd_mode)
+            self.update_sum(self.prices['fumigation'], upd_mode)
         elif kind == 'leak':
             self.no_leakiness += 1
             self.leakiness_amount['text'] = str(self.no_leakiness)
-            self.update_sum(70, upd_mode)
+            self.update_sum(self.prices['leakiness'], upd_mode)
 
 
     def subtract(self, kind=''):
@@ -121,15 +125,15 @@ class MainApp(tk.Frame):
         if kind == 'full' and self.no_full_set > 0:
             self.no_full_set -= 1
             self.full_set_amount['text'] = str(self.no_full_set)
-            self.update_sum(200, upd_mode)
+            self.update_sum(self.prices['full_set'], upd_mode)
         elif kind == 'fum' and self.no_ac_fumigation > 0:
             self.no_ac_fumigation -= 1
             self.ac_fumigation_amount['text'] = str(self.no_ac_fumigation)
-            self.update_sum(50, upd_mode)
+            self.update_sum(self.prices['fumigation'], upd_mode)
         elif kind == 'leak' and self.no_leakiness > 0:
             self.no_leakiness -= 1
             self.leakiness_amount['text'] = str(self.no_leakiness)
-            self.update_sum(70, upd_mode)
+            self.update_sum(self.prices['leakiness'], upd_mode)
 
     
     def update_sum(self, cost, mode):
