@@ -1,4 +1,5 @@
 import tkinter as tk
+from tkinter import messagebox
 import sms
 import gsrap
 
@@ -136,7 +137,11 @@ class MainApp(tk.Frame):
         self.day_info['worker_name']= self.name_entry.get()
         self.day_info['date'] = self.date_entry.get()
         sms.send_msg(day_info)
-        gsrap.insert_data(day_info)
+        if not gsrap.insert_data(day_info):
+            messagebox.showerror('Błąd w akceptacji raportu', 'Przykro mi, po drodze wystąpił błąd')
+        else:
+            messagebox.showinfo('Akceptacja raportu', 'Raport zaakceptowany pomyślnie')
+
         
 if __name__== '__main__':
     root = tk.Tk()
