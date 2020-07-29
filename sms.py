@@ -2,7 +2,7 @@ from twilio.rest import Client
         
 
 def send_msg(day_info):
-    client = Client("ACcaf60ae6f3dbdc0a64b387afc2178904", "a48e14c85b6619b0e39beb3b397f7fc8")
+    client = Client("sid", "auth token")
 
     msg= f"""
 Centrum klimatyzacji Kalisz
@@ -19,6 +19,6 @@ Centrum klimatyzacji Kalisz
 Suma: {day_info['money_earned']} zł
 Godziny pracy: {day_info['worker_name']} 10-18
          """
-    client.messages.create(to="+48503525328",
-                       from_="+18137564411",
+    client.messages.create(to="+receiver number",
+                       from_="your num",
                        body=msg)
