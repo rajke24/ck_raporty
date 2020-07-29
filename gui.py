@@ -1,5 +1,6 @@
 import tkinter as tk
 import sms
+import gsrap
 
 class MainApp(tk.Frame):
     def __init__(self, parent, *args, **kwargs):
@@ -15,8 +16,9 @@ class MainApp(tk.Frame):
                         'no_full_set': 0,
                         'no_fum': 0,
                         'no_leak': 0,
-                        'money_earned': 0,
-                        'random_sets': {}}
+                        'random_sets': {},
+                        'money_earned': 0
+                        }
 
         # Label and entry for inserting date of raport
         self.date_label = tk.Label(parent, text='Wprowadź datę')
@@ -59,7 +61,7 @@ class MainApp(tk.Frame):
         self.sum_value_label = tk.Label(self.sum_frame, text=str(self.day_info['money_earned']), borderwidth=2, relief='solid', width=12, anchor='e', padx=5)
         
         # Button that triggers confirmation and sending of a raport
-        self.confirm_btn = tk.Button(parent, text='Zatwierdź i wyślij raport', command= lambda: self.send_message(self.day_info))
+        self.confirm_btn = tk.Button(parent, text='Zatwierdź i wyślij raport', command= lambda: self.confirm_raport(self.day_info))
 
         self.setup_grid()
 
@@ -108,7 +110,7 @@ class MainApp(tk.Frame):
             self.day_info['random_sets'].setdefault(str(set_cost), 1)
         else:
             self.day_info['random_sets'][str(set_cost)] += 1
-            
+
     
     def increase_sum(self, kind=''):
         self.day_info['no_'+ kind] += 1
@@ -130,11 +132,11 @@ class MainApp(tk.Frame):
         elif kind == 'leak':
             self.leakiness_amount['text'] = str(self.day_info['no_leak'])
 
-    def send_message(self, day_info):
+    def confirm_raport(self, day_info):
         self.day_info['worker_name']= self.name_entry.get()
         self.day_info['date'] = self.date_entry.get()
         sms.send_msg(day_info)
-        
+        gsrap.insert_data(day_info)
         
 if __name__== '__main__':
     root = tk.Tk()
