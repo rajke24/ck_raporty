@@ -1,17 +1,23 @@
 from twilio.rest import Client
+        
 
+def send_msg(day_info):
+    client = Client("sid", "auth token")
 
-def send_msg(date, name, no_full, no_leak, no_fum, sum):
-    client = Client("your account sid", "auth token")
     msg= f"""
 Centrum klimatyzacji Kalisz
-{date}
-{no_fum}x odgrzybianie - 50 zł
-{no_leak}x nieszczelność - 70 zł
-{no_full}x komplet - 200 zł
+{day_info['date']}
+{day_info['no_fum']}x odgrzybianie - 50 zł
+{day_info['no_leak']}x nieszczelność - 70 zł
+{day_info['no_full_set']}x komplet - 200 zł"""
 
-Suma: {sum}
-Godziny pracy: {name} 10-18
+    for key, val in day_info['random_sets'].items():
+        msg += '\n'
+        msg += f'{val}x komplet - {key} zł'
+
+    msg += f"""\n
+Suma: {day_info['money_earned']} zł
+Godziny pracy: {day_info['worker_name']} 10-18
          """
     client.messages.create(to="receiver",
                        from_="your phone number",
