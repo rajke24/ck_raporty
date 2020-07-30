@@ -14,9 +14,11 @@ def insert_data(data):
         sheet = client.open('CK_raporty').sheet1
         
         row_num = 2
-        data['random_sets'] = '\n'.join([f'{no}x komplet - {price} zł' for price, no in data['random_sets'].items() ])
+        if data['random_sets']:
+            data['random_sets'] = '\n'.join([f'{no}x komplet - {price} zł' for price, no in data['random_sets'].items() ])
+        else:
+            data['random_sets'] = ''
         data = list(data.values())
         sheet.insert_row(data, row_num)
     except:
         return False
-
