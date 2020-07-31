@@ -1,7 +1,10 @@
 from twilio.rest import Client
+import os
         
 
 def send_msg(day_info):
+    twillio_sid = os.environ.get('TWILIO_SID')
+    twillio_auth_token = os.environ.get('TWILIO_AUTH_TOKEN')
     client = Client("sid", "auth token")
 
     msg= f"""
